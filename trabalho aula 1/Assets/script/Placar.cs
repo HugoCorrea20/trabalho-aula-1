@@ -5,8 +5,8 @@ public class Placar : MonoBehaviour
 {
     public TextMeshProUGUI textMeshPro;
     public TextMeshProUGUI textMeshPro2; // Referência ao componente TMP Text
-    public Movimentacao2D jogador; // Referência ao script do jogador
-    public Movimentacao2D jogador2; // Referência ao script do jogador
+    public personagem jogador; // Referência ao script do jogador
+    public personagem jogador2; // Referência ao script do jogador
 
     private void Start()
     {

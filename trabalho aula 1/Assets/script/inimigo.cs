@@ -13,6 +13,7 @@ public class inimigo : MonoBehaviour
     private float currentDistance = 0.0f;
     public int damageAmount = 10;
 
+
     private void Start()
     {
         currentHealth = maxHealth;
@@ -51,7 +52,8 @@ public class inimigo : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player")) // Verifique se a colisão é com o jogador
         {
-            Movimentacao2D playerHealth = collision.gameObject.GetComponent<Movimentacao2D>();
+            personagem playerHealth = collision.gameObject.GetComponent<personagem>();
+            
             if (playerHealth != null)
             {
                 playerHealth.TakeDamage(damageAmount);

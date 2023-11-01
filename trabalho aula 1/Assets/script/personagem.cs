@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 
-public class Movimentacao2D : MonoBehaviour
+public class personagem : MonoBehaviour
 {
     public float moveSpeed = 5f;
     public float jumpForce = 10f;
@@ -15,11 +15,14 @@ public class Movimentacao2D : MonoBehaviour
     public  int currentHealth;
     public  int deathCount = 0;
     public float deathHeight = -10.0f; // Defina a altura de morte, ajuste conforme necessário
+    public GameObject endGamePoint;
+    public GameObject fimdejogo;
 
 
     private void Start()
 {
     currentHealth = maxHealth;
+        Time.timeScale = 1;
     
  
 }
@@ -63,6 +66,14 @@ public class Movimentacao2D : MonoBehaviour
             isBoosted = false;
         }
     }
+    public void OnHeal(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            Heal();
+        }
+    }
+
     public void OnAttack(InputAction.CallbackContext context)
     {
         if (context.performed)
@@ -70,6 +81,21 @@ public class Movimentacao2D : MonoBehaviour
             Attack();
         }
     }
+    private void Heal()
+    {
+        int healAmount = 20; // Ajuste a quantidade de cura conforme necessário
+        currentHealth += healAmount;
+
+        // Certifique-se de que a saúde não excede o valor máximo
+        if (currentHealth > maxHealth)
+        {
+            currentHealth = maxHealth;
+        }
+
+        // Se você tiver um segundo jogador, faça o mesmo para ele
+        // player2.currentHealth += healAmount;
+    }
+
     private void Attack()
     {
         // Implemente a lógica de ataque aqui
@@ -89,6 +115,15 @@ public class Movimentacao2D : MonoBehaviour
                     enemyHealth.TakeDamage(damage);
                 }
             }
+        }
+    }
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject == endGamePoint)
+        {
+            fimdejogo.SetActive(true);
+            Debug.Log("Jogo terminou!");
+            Time.timeScale = 0;
         }
     }
     public void TakeDamage(int damage)
